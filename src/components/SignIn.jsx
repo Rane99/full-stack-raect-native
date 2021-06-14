@@ -4,20 +4,21 @@ import { Formik } from 'formik';
 import FormikTextInput from './FormikTextInput';
 import * as yup from 'yup';
 import theme from '../theme';
+import useSignIn from '../hooks/useSignIn';
 
 
 const validationSchema = yup.object().shape({
   username: yup
     .string()
-    .required('Weight is required'),
+    .required('name is required'),
   password: yup
     .string()
-    .required('Height is required'),
+    .required('password is required'),
 });
 
 const initialValues = {
-  username: '',
-  password: '',
+  username: 'kalle',
+  password: 'password',
 };
 
 const styles = StyleSheet.create({
@@ -41,10 +42,11 @@ const styles = StyleSheet.create({
   });
 
 const SignIn = ({ onSubmit }) => {
+  
     return (
       <View style={styles.rowContainer}>
         <FormikTextInput name="username" placeholder="Username" />
-        <FormikTextInput name="password" placeholder="Password" secureTextEntry/>
+        <FormikTextInput name="password" placeholder="Password" />
         <Pressable onPress={onSubmit}>
           <Text style={styles.button} >Sign In</Text>
         </Pressable>
@@ -53,8 +55,21 @@ const SignIn = ({ onSubmit }) => {
   };
 
 const SignInForm = () => {
-    const onSubmit = (values) => {
-        console.log(values);
+    
+    const [signIn] = useSignIn();
+    
+
+    const onSubmit = async (values) => {
+      
+        const { username, password } = values;
+        
+
+        try {
+          const data  = await signIn({ username, password });
+          
+       } catch (e) {
+          console.log(e);
+       }
       };
 
   return (

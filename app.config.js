@@ -1,6 +1,10 @@
-{
-  "expo": {
+import 'dotenv/config';
+
+  export default {
     "name": "rate-repository-app",
+    extra: {
+      env: process.env.APOLLO_URI,
+    },
     "slug": "rate-repository-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -28,5 +32,5 @@
     "web": {
       "favicon": "./assets/favicon.png"
     }
-  }
-}
+  };
+
